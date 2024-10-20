@@ -22,4 +22,5 @@
     <style name="Theme.Pr2v6.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.Pr2v6.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-</resources>
+
+/</resources>
