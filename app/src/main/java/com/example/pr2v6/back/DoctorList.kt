@@ -98,6 +98,26 @@ object DoctorList: HiddenBaseImpl( mutableListOf() ) {
         return this.find { (it.specialization.lowercase() == specialization.lowercase()) && (it.consultationPrice == price) }
     }
 
+    fun findDoctorsWithPriceLessThan(price: Float): List<Doctor> {
+        val goodDoctors: MutableList<Doctor> = mutableListOf()
+        for( doctor in this )
+        {
+            if( doctor.consultationPrice <= price )
+                goodDoctors.add(doctor)
+        }
+        return goodDoctors
+    }
+
+    fun findDoctorsWithSameSpecialization(specialization: String): List<Doctor> {
+        val goodDoctors: MutableList<Doctor> = mutableListOf()
+        for( doctor in this )
+        {
+            if( doctor.specialization.lowercase() == specialization.lowercase() )
+                goodDoctors.add(doctor)
+        }
+
+        return goodDoctors
+    }
 
     override fun toString(): String {
         val builder = StringBuilder()

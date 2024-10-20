@@ -54,7 +54,12 @@ class DoctorAdapter (private val mDoctors: List<Doctor>,
         priceView.setText(doctor.consultationPrice.toString())
 
         val ratingView = viewHolder.ratingTextView
-        ratingView.setText(doctor.getDoctorsRating().toString())
+        var ratingFloat: Float = doctor.getDoctorsRating()
+        var ratingText: String = ratingFloat.toString()
+        if( ratingFloat == 0.0f ) {
+            ratingText = "N/A"
+        }
+        ratingView.setText(ratingText)
 
         val imag = viewHolder.imageView
         Picasso.get().load(IMAGES[position % IMAGES.size]).into(imag)

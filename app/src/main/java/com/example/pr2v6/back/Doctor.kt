@@ -212,7 +212,7 @@ class Doctor(
         for( item in patientReviews )
             sum += item.rating
 
-        return sum
+        return sum / patientReviews.size
 
     }
 }

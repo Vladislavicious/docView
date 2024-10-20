@@ -2,10 +2,14 @@ package com.example.pr2v6.ui.home
 
 import DoctorList
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -20,9 +24,14 @@ import com.example.pr2v6.databinding.FragmentHomeBinding
 
 internal val DOCTORS_LIST_FILENAME = "doctors.json"
 
+val PRICE_OPTION_STR: String = "Цена"
+val SPEC_OPTION_STR: String = "Специализация"
+
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
+    private lateinit var textView: TextView
+    private lateinit var editText: EditText
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -38,11 +47,6 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
 
         val rvContacts: RecyclerView = root.findViewById(R.id.rvContacts)
         // Initialize contacts
@@ -68,7 +72,80 @@ class HomeFragment : Fragment() {
             }
         })
 
+        /// search
+
+        textView = root.findViewById(R.id.textView)
+        editText = root.findViewById(R.id.editText)
+
+        // Настройка текстового поля для открытия подменю
+        textView.setOnClickListener {
+            showPopupMenu(it)
+        }
+
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Реакция на ввод текста
+                handleInputChange(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
         return root
+    }
+
+    private fun showPopupMenu(view: View) {
+        val popupMenu = PopupMenu( this.activity, view)
+        popupMenu.menu.add(PRICE_OPTION_STR)
+        popupMenu.menu.add(SPEC_OPTION_STR)
+
+        popupMenu.setOnMenuItemClickListener { menuItem ->
+            textView.text = menuItem.title // Обновляем текстовое поле
+
+            if( menuItem.title == SPEC_OPTION_STR )
+                textView.hint = "Введите специализацию"
+            else
+                textView.hint = "Введите цену"
+
+            true
+        }
+
+        popupMenu.show()
+    }
+
+    private fun handleInputChange(input: String) {
+        // Реакция на изменение текста в поле ввода
+
+        if( !input.contains("\n") )
+            return
+
+        editText.setText("")
+
+        if( input.length >= 8 ) {
+            Toast.makeText(activity, "line too long", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val number = input.trim().toIntOrNull()
+        if( number == null ) {
+            Toast.makeText(activity, "not a number", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if( textView.text == PRICE_OPTION_STR )
+        {
+            Toast.makeText(activity, "ищем по цене $number", Toast.LENGTH_SHORT).show()
+        }
+        else if( textView.text == SPEC_OPTION_STR )
+        {
+            Toast.makeText(activity, "ищем по спец $number", Toast.LENGTH_SHORT).show()
+        }
+        else {
+            Toast.makeText(activity, "параметр не выбран", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     override fun onDestroyView() {

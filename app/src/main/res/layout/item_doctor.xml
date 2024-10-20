@@ -5,7 +5,6 @@
     android:id="@+id/padding"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#F1D9D9"
     android:baselineAligned="false"
     android:orientation="horizontal"
     android:padding="16dp">
