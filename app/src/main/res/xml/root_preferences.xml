@@ -1,0 +1,28 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/visibility_header">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/visibility_title"
+            android:title="@string/visibility_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/notifications_header">
+
+        <SwitchPreferenceCompat
+            app:key="sync"
+            app:title="@string/notif_send_title" />
+
+        <SwitchPreferenceCompat
+            app:dependency="sync"
+            app:key="attachment"
+            app:summaryOff="@string/attachment_summary_off"
+            app:summaryOn="@string/attachment_summary_on"
+            app:title="@string/advertisment_notif_title" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
