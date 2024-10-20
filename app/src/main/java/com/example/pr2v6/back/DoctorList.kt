@@ -98,6 +98,7 @@ object DoctorList: HiddenBaseImpl( mutableListOf() ) {
         return this.find { (it.specialization.lowercase() == specialization.lowercase()) && (it.consultationPrice == price) }
     }
 
+
     override fun toString(): String {
         val builder = StringBuilder()
         builder.append( String.format("%-3S|%-20S|%-20S|%-10S\n", "№", "ФИО доктора", "Специализация", "Стоимость") )

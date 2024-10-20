@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.pr2v6.R
-import com.example.pr2v6.databinding.FragmentHomeBinding
 import com.example.pr2v6.DoctorAdapter
+import com.example.pr2v6.R
 import com.example.pr2v6.back.Doctor
+import com.example.pr2v6.databinding.FragmentHomeBinding
+
 
 class HomeFragment : Fragment() {
 
@@ -43,11 +45,12 @@ class HomeFragment : Fragment() {
         // Initialize contacts
         contacts = Doctor.createDoctorsList(20)
 //        // Create adapter passing in the sample user data
-        val adapter = DoctorAdapter(contacts)
+        val adapter = DoctorAdapter(contacts, this)
 //        // Attach the adapter to the recyclerview to populate items
         rvContacts.adapter = adapter
 //        // Set layout manager to position the items
-        rvContacts.layoutManager = LinearLayoutManager(this.context)
+        var layoutMan = LinearLayoutManager(this.context)
+        rvContacts.layoutManager = layoutMan
 
         return root
     }

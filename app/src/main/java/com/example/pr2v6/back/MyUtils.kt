@@ -1,6 +1,6 @@
 
 fun getRandomString(length: Int): String {
-    val charset = ('a'..'z') + ('A'..'Z') + ('0'..'9')
+    val charset = ('a'..'z') + ('A'..'Z')
     return List(length) { charset.random() }.joinToString("")
 }
 

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.imageview.ShapeableImageView
 import com.squareup.picasso.Picasso
+import kotlin.random.Random
 
 private const val ARG_imageName = "imageAddress"
 
@@ -41,6 +42,7 @@ class AvatarFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_avatar, container, false)
 
         var imageViw: ShapeableImageView = view.findViewById(R.id.imageView_inFragment1)
+
         imageName.let {
             Picasso.get().load(it).into(imageViw)
         }

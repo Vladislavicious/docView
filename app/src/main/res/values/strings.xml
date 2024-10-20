@@ -35,4 +35,8 @@
     <string name="attachment_summary_on">Периодически отправляются рекламные предложения
     </string>
     <string name="attachment_summary_off">Рекламные предложения не отправляются</string>
+    <string name="doctorNameHint">Врач</string>
+    <string name="doctorPriceHint">Консультация</string>
+    <string name="doctorRatingHint">Рейтинг</string>
+    <string name="doctorSpecHint">Специализация</string>
 </resources>
