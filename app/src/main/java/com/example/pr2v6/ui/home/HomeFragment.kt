@@ -123,27 +123,55 @@ class HomeFragment : Fragment() {
 
         editText.setText("")
 
-        if( input.length >= 8 ) {
+        if( input.length == 1 ) // Просто введён Enter
+        {
+            val adapter = DoctorAdapter(DoctorList.findDoctorsWithPriceLessThan(Float.MAX_VALUE),
+                this)
+            val rvContacts: RecyclerView = binding.root.findViewById(R.id.rvContacts)
+            rvContacts.adapter = adapter
+            rvContacts.invalidate()
+            return
+        }
+
+        if( input.length >= 21 ) {
             Toast.makeText(activity, "line too long", Toast.LENGTH_SHORT).show()
             return
         }
 
-        val number = input.trim().toIntOrNull()
-        if( number == null ) {
-            Toast.makeText(activity, "not a number", Toast.LENGTH_SHORT).show()
-            return
-        }
+        val cleanInput = input.trim()
 
         if( textView.text == PRICE_OPTION_STR )
         {
+            val number = cleanInput.toFloatOrNull()
+            if( number == null ) {
+                Toast.makeText(activity, "not a number", Toast.LENGTH_SHORT).show()
+                return
+            }
+
             Toast.makeText(activity, "ищем по цене $number", Toast.LENGTH_SHORT).show()
+            val adapter = DoctorAdapter(DoctorList.findDoctorsWithPriceLessThan(number),
+                this)
+
+            val rvContacts: RecyclerView = binding.root.findViewById(R.id.rvContacts)
+            rvContacts.adapter = adapter
+            rvContacts.invalidate()
+            return
         }
-        else if( textView.text == SPEC_OPTION_STR )
+
+        if( textView.text == SPEC_OPTION_STR )
         {
-            Toast.makeText(activity, "ищем по спец $number", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "ищем по спец", Toast.LENGTH_SHORT).show()
+
+            val adapter = DoctorAdapter(DoctorList.findDoctorsWithSameSpecialization(cleanInput),
+                         this)
+
+            val rvContacts: RecyclerView = binding.root.findViewById(R.id.rvContacts)
+            rvContacts.adapter = adapter
+            rvContacts.invalidate()
         }
         else {
             Toast.makeText(activity, "параметр не выбран", Toast.LENGTH_SHORT).show()
+
         }
 
     }
