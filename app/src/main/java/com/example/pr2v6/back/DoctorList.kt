@@ -4,10 +4,9 @@ import com.example.pr2v6.back.getDoctorFromString
 
 open class HiddenBaseImpl internal constructor( protected val _b: MutableList<Doctor> ) : MutableList<Doctor> by _b
 
-//TODO: Убрать работу с файлом в отдельный класс
-
 object DoctorList: HiddenBaseImpl( mutableListOf() ) {
     private var fileName: String = ""
+    private var lastGivenDoctorList: MutableList<Doctor> = mutableListOf()
 
     fun initialize(filename: String): Boolean {
         this.fileName = filename
@@ -21,10 +20,14 @@ object DoctorList: HiddenBaseImpl( mutableListOf() ) {
         if(arr != null) {
             this.addAll(arr)
         }
+        lastGivenDoctorList = this
 
         return true
     }
 
+    fun getLastListItem(index: Int): Doctor {
+        return lastGivenDoctorList[index]
+    }
 
     fun toJSON(): String {
         val builder: StringBuilder = StringBuilder()
@@ -105,6 +108,8 @@ object DoctorList: HiddenBaseImpl( mutableListOf() ) {
             if( doctor.consultationPrice <= price )
                 goodDoctors.add(doctor)
         }
+        lastGivenDoctorList = goodDoctors
+
         return goodDoctors
     }
 
@@ -115,6 +120,8 @@ object DoctorList: HiddenBaseImpl( mutableListOf() ) {
             if( doctor.specialization.lowercase() == specialization.lowercase() )
                 goodDoctors.add(doctor)
         }
+
+        lastGivenDoctorList = goodDoctors
 
         return goodDoctors
     }

@@ -1,6 +1,7 @@
 package com.example.pr2v6.ui.home
 
 import DoctorList
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -16,11 +17,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.pr2v6.DoctorActivity
 import com.example.pr2v6.DoctorAdapter
 import com.example.pr2v6.R
 import com.example.pr2v6.back.Doctor
 import com.example.pr2v6.back.getRandomDoctor
 import com.example.pr2v6.databinding.FragmentHomeBinding
+
 
 internal val DOCTORS_LIST_FILENAME = "doctors.json"
 
@@ -68,7 +71,15 @@ class HomeFragment : Fragment() {
 
         adapter.setOnClickListener(object : DoctorAdapter.OnClickListener {
             override fun onClick(position: Int, model: Doctor) {
-                Toast.makeText(activity, "click $position!", Toast.LENGTH_SHORT).show()
+                val intent: Intent = Intent(
+                    activity,
+                    DoctorActivity::class.java
+                )
+
+                val b = Bundle()
+                b.putInt("key", position) //Your id
+                intent.putExtras(b) //Put your id to your next Intent
+                startActivity(intent)
             }
         })
 
