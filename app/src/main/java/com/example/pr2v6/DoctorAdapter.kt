@@ -15,6 +15,7 @@ import kotlin.random.Random
 class DoctorAdapter (private val mDoctors: List<Doctor>,
                      private val mFragmentParent: Fragment) : RecyclerView.Adapter<DoctorAdapter.ViewHolder>()
 {
+    private var onClickListener: OnClickListener? = null
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -57,12 +58,27 @@ class DoctorAdapter (private val mDoctors: List<Doctor>,
 
         val imag = viewHolder.imageView
         Picasso.get().load(IMAGES[position % IMAGES.size]).into(imag)
+
+        viewHolder.itemView.setOnClickListener {
+            onClickListener?.onClick(position, doctor)
+        }
+    }
+
+    fun setOnClickListener(listener: OnClickListener?) {
+        this.onClickListener = listener
+    }
+
+    // Interface for the click listener
+    interface OnClickListener {
+        fun onClick(position: Int, model: Doctor)
     }
 
     // Returns the total count of items in the list
     override fun getItemCount(): Int {
         return mDoctors.size
     }
+
+
 }
 
 private val IMAGES = mutableListOf(
