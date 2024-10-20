@@ -23,7 +23,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-f
+
+        <activity
+            android:theme="@style/Theme.Pr2v6.NoActionBar"
+            android:name=".LoginActivity" />
         <activity
             android:theme="@style/Theme.Pr2v6.NoActionBar"
             android:name=".MainActivity" />

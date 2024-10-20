@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 
 class SplashActivity : AppCompatActivity() {
 
+    private val SPLASH_DURATION: Long = 500
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -24,7 +26,7 @@ class SplashActivity : AppCompatActivity() {
             // creating a new intent
             val i = Intent(
                 this@SplashActivity,
-                MainActivity::class.java
+                LoginActivity::class.java
             )
             // on below line we are
             // starting a new activity.
@@ -33,6 +35,6 @@ class SplashActivity : AppCompatActivity() {
             // on the below line we are finishing
             // our current activity.
             finish()
-        }, 500)
+        }, SPLASH_DURATION)
     }
 }

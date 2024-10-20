@@ -10,4 +10,10 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+
+    <!-- Login activity -->
+    <string name="login_activity_title">Authorization</string>
+    <string name="password_hint">password</string>
+    <string name="login_hint">login</string>
+    <string name="login_button">Authorize</string>
 </resources>
