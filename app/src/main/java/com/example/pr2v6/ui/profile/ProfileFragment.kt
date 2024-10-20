@@ -1,14 +1,17 @@
 package com.example.pr2v6.ui.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.pr2v6.AvatarFragment
 import com.example.pr2v6.R
+import com.example.pr2v6.com.example.pr2v6.LoginActivity
 import com.example.pr2v6.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
@@ -30,17 +33,34 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textInsideProfile
+        val userName: TextView = binding.userName
         ProfileViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+            userName.text = it
         }
 
+        val userCity: TextView = binding.userCity
+        ProfileViewModel.city.observe(viewLifecycleOwner) {
+            userCity.text = it
+        }
 
-        var fragment = AvatarFragment.newInstance("str1", "https://avatars.mds.yandex.net/get-mpic/1985106/img_id2047960825122601198.jpeg/orig")
+        val userEmail: TextView = binding.userEmail
+        ProfileViewModel.email.observe(viewLifecycleOwner) {
+            userEmail.text = it
+        }
 
-        var ft = childFragmentManager.beginTransaction()
-        ft.replace(R.id.fragment1Frame, fragment, "avatarInsideOfProfile")
-        ft.commit()
+        ProfileViewModel.photoAddr.observe(viewLifecycleOwner) {
+            val fragment = AvatarFragment.newInstance(it)
+
+            val ft = childFragmentManager.beginTransaction()
+            ft.replace(R.id.fragment1Frame, fragment, "avatarInsideOfProfile")
+            ft.commit()
+        }
+
+        val exitButton: Button = binding.button
+        exitButton.setOnClickListener {
+            val intent = Intent(activity, LoginActivity::class.java)
+            startActivity(intent)
+        }
 
         return root
     }

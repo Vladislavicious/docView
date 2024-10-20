@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:layout_marginTop="0dp"
+    android:layout_marginBottom="0dp"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".ui.profile.ProfileFragment">
 
     <androidx.fragment.app.FragmentContainerView
@@ -13,16 +15,92 @@
         android:name="com.example.pr2v6.AvatarFragment"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        android:layout_marginBottom="50dp"
         android:layout_weight="0"
         tools:layout="@layout/fragment_avatar" />
 
     <TextView
-        android:id="@+id/text_Inside_profile"
+        android:id="@+id/head1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="0dp"
         android:layout_marginEnd="8dp"
-        android:textAlignment="center"
+        android:layout_weight="0"
+        android:text="@string/userName_str"
+        android:textAlignment="viewStart"
+        android:textColor="@color/hint_text"
         android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="0"
+        android:textAlignment="center"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/head2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_weight="0"
+        android:text="@string/userEmail_str"
+        android:textAlignment="viewStart"
+        android:textColor="@color/hint_text"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/user_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="0"
+        android:textAlignment="center"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/head3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_weight="0"
+        android:text="@string/userCity_str"
+        android:textAlignment="viewStart"
+        android:textColor="@color/hint_text"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/user_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="0"
+        android:textAlignment="center"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_weight="0"
+        android:backgroundTint="@color/dangerous"
+        android:text="@string/ExitProfile_str" />
+
 </LinearLayout>
