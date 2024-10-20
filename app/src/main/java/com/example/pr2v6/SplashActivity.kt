@@ -1,11 +1,11 @@
 
-package com.example.pr2v6
+package com.example.pr2v6.com.example.pr2v6
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import com.example.pr2v6.R
 
 class SplashActivity : AppCompatActivity() {
 
