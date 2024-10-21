@@ -1,14 +1,17 @@
 package com.example.pr2v6.ui.doc
 
+import IMAGES
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 
 import com.example.pr2v6.R
+import com.squareup.picasso.Picasso
 
 internal val ARG_doctorIndex = "docIndex"
 
@@ -30,11 +33,21 @@ class DoctorFragment : Fragment() {
     ): View {
         val view = inflater.inflate(R.layout.fragment_doctor, container, false)
 
-        val text = view.findViewById<TextView>(R.id.doctorTextId)
+        val nameTextView = view.findViewById<TextView>(R.id.doctorFragmentName)
+        val specTextView = view.findViewById<TextView>(R.id.doctorFragmentSpecialization)
+        val priceTextView = view.findViewById<TextView>(R.id.doctorFragmentPrice)
+        val ratingTextView = view.findViewById<TextView>(R.id.doctorFragmentRating)
+        val imageView = view.findViewById<ImageView>(R.id.imageViewInDoctorFragment)
 
-        //TODO: брать DoctorList из APP, чтобы везде точно была одна и та же инстанция
+        val doctor = DoctorList.getLastListItem(doctorIndex)
 
-        text.text = DoctorList.getLastListItem(doctorIndex).fullName
+        nameTextView.text = doctor.getFullNameFormatted()
+        specTextView.text = doctor.specialization
+        priceTextView.text = doctor.consultationPrice.toString()
+        ratingTextView.text = doctor.getDoctorsRating().toString()
+
+        Picasso.get().load(IMAGES[doctorIndex % IMAGES.size]).into(imageView)
+
         return view
     }
 

@@ -1,5 +1,6 @@
 package com.example.pr2v6
 
+import DoctorList
 import android.app.Application
 import android.os.Bundle
 import android.view.Menu
@@ -15,6 +16,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pr2v6.databinding.ActivityMainBinding
+
+class App: Application() {
+    private val doctorList = DoctorList
+
+    fun getDoctorList(): DoctorList {
+        return doctorList
+    }
+}
 
 class MainActivity : AppCompatActivity() {
 

@@ -1,6 +1,7 @@
 import com.example.*
 import com.example.pr2v6.back.Doctor
 import com.example.pr2v6.back.getDoctorFromString
+import java.util.EnumSet.copyOf
 
 open class HiddenBaseImpl internal constructor( protected val _b: MutableList<Doctor> ) : MutableList<Doctor> by _b
 
@@ -52,6 +53,7 @@ object DoctorList: HiddenBaseImpl( mutableListOf() ) {
 
     override fun add(element: Doctor): Boolean {
         super.add(element)
+        lastGivenDoctorList.add(element)
 
         return rewriteBackToFile()
     }
