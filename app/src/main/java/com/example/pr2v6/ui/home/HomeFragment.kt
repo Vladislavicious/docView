@@ -51,7 +51,7 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val rvContacts: RecyclerView = root.findViewById(R.id.rvContacts)
+        val recyclerDoctors: RecyclerView = root.findViewById(R.id.recyclerDoctors)
         // Initialize contacts
 
         if( false == DoctorList.initialize(DOCTORS_LIST_FILENAME) )
@@ -62,12 +62,12 @@ class HomeFragment : Fragment() {
         }
 
 //        // Create adapter passing in the sample user data
-        val adapter = DoctorAdapter(DoctorList, this)
+        val adapter = DoctorAdapter(DoctorList)
 //        // Attach the adapter to the recyclerview to populate items
-        rvContacts.adapter = adapter
+        recyclerDoctors.adapter = adapter
 //        // Set layout manager to position the items
         var layoutMan = LinearLayoutManager(this.context)
-        rvContacts.layoutManager = layoutMan
+        recyclerDoctors.layoutManager = layoutMan
 
         adapter.setOnClickListener(object : DoctorAdapter.OnClickListener {
             override fun onClick(position: Int, model: Doctor) {
@@ -136,9 +136,8 @@ class HomeFragment : Fragment() {
 
         if( input.length == 1 ) // Просто введён Enter
         {
-            val adapter = DoctorAdapter(DoctorList.findDoctorsWithPriceLessThan(Float.MAX_VALUE),
-                this)
-            val rvContacts: RecyclerView = binding.root.findViewById(R.id.rvContacts)
+            val adapter = DoctorAdapter(DoctorList.findDoctorsWithPriceLessThan(Float.MAX_VALUE))
+            val rvContacts: RecyclerView = binding.root.findViewById(R.id.recyclerDoctors)
             rvContacts.adapter = adapter
             rvContacts.invalidate()
             return
@@ -160,10 +159,9 @@ class HomeFragment : Fragment() {
             }
 
             Toast.makeText(activity, "ищем по цене $number", Toast.LENGTH_SHORT).show()
-            val adapter = DoctorAdapter(DoctorList.findDoctorsWithPriceLessThan(number),
-                this)
+            val adapter = DoctorAdapter(DoctorList.findDoctorsWithPriceLessThan(number))
 
-            val rvContacts: RecyclerView = binding.root.findViewById(R.id.rvContacts)
+            val rvContacts: RecyclerView = binding.root.findViewById(R.id.recyclerDoctors)
             rvContacts.adapter = adapter
             rvContacts.invalidate()
             return
@@ -173,10 +171,9 @@ class HomeFragment : Fragment() {
         {
             Toast.makeText(activity, "ищем по спец", Toast.LENGTH_SHORT).show()
 
-            val adapter = DoctorAdapter(DoctorList.findDoctorsWithSameSpecialization(cleanInput),
-                         this)
+            val adapter = DoctorAdapter(DoctorList.findDoctorsWithSameSpecialization(cleanInput))
 
-            val rvContacts: RecyclerView = binding.root.findViewById(R.id.rvContacts)
+            val rvContacts: RecyclerView = binding.root.findViewById(R.id.recyclerDoctors)
             rvContacts.adapter = adapter
             rvContacts.invalidate()
         }

@@ -39,4 +39,7 @@
     <string name="doctorPriceHint">Консультация</string>
     <string name="doctorRatingHint">Рейтинг</string>
     <string name="doctorSpecHint">Специализация</string>
+
+    <string name="reviewRatingHint">Оценка</string>
+    <string name="reviewReviewHint">Отзыв</string>
 </resources>

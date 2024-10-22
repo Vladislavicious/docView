@@ -9,8 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 import com.example.pr2v6.R
+import com.example.pr2v6.ReviewAdapter
 import com.squareup.picasso.Picasso
 
 internal val ARG_doctorIndex = "docIndex"
@@ -44,9 +47,18 @@ class DoctorFragment : Fragment() {
         nameTextView.text = doctor.getFullNameFormatted()
         specTextView.text = doctor.specialization
         priceTextView.text = doctor.consultationPrice.toString()
-        ratingTextView.text = doctor.getDoctorsRating().toString()
+        ratingTextView.text = doctor.getRatingString()
 
         Picasso.get().load(IMAGES[doctorIndex % IMAGES.size]).into(imageView)
+
+        val recyclerReviews: RecyclerView = view.findViewById(R.id.reviewsRecyclerView)
+
+        val adapter = ReviewAdapter(doctor.getDoctorsReviews())
+//        // Attach the adapter to the recyclerview to populate items
+        recyclerReviews.adapter = adapter
+//        // Set layout manager to position the items
+        var layoutMan = LinearLayoutManager(this.context)
+        recyclerReviews.layoutManager = layoutMan
 
         return view
     }

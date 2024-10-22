@@ -1,7 +1,7 @@
 package com.example.pr2v6.back
 
 import Consultation
-import com.example.CustomData
+import com.example.DoctorReview
 import getRandomString
 import com.example.DATA_FORMAT
 import com.example.JsonObjectType
@@ -23,7 +23,7 @@ class Doctor(
     var fullName: String, // Фамилия, имя, отчество
     var workSchedule: List<LocalDateTime>,
     var consultationPrice: Float,
-    val patientReviews: List<CustomData>
+    val patientReviews: List<DoctorReview>
 ) {
     init {
         require(fullName.split(" ").size == 3) { "Введен неверный формат ФИО" }
@@ -199,7 +199,7 @@ class Doctor(
     fun getDoctorsWorkSchedule(): List<LocalDateTime> {
         return workSchedule
     }
-    fun getDoctorsReviews(): List<CustomData> {
+    fun getDoctorsReviews(): List<DoctorReview> {
         return patientReviews
     }
 
@@ -214,6 +214,15 @@ class Doctor(
 
         return sum / patientReviews.size
 
+    }
+
+    fun getRatingString(): String {
+        var rating: Float = getDoctorsRating()
+        var ratingText = rating.toString()
+        if( rating == 0.0f ) {
+            ratingText = "N/A"
+        }
+        return ratingText
     }
 }
 
@@ -333,7 +342,7 @@ fun parseDoctorFromInput(): Doctor? {
         return null
     }
 
-    val reviewList: MutableList<CustomData> = mutableListOf()
+    val reviewList: MutableList<DoctorReview> = mutableListOf()
     var endStr: String?
 
     do {
@@ -359,8 +368,8 @@ fun parseDoctorFromInput(): Doctor? {
     )
 }
 
-fun getRandomCustomData(): CustomData {
-    return CustomData(
+fun getRandomCustomData(): DoctorReview {
+    return DoctorReview(
         reviewDate = LocalDateTime.now(),
         patientName = getRandomString(7),
         reviewText = getRandomString(13),
@@ -375,7 +384,7 @@ fun getRandomDoctor(): Doctor {
         scheduleList.add(LocalDateTime.now())
     }
 
-    val cusDataList: MutableList<CustomData> = mutableListOf()
+    val cusDataList: MutableList<DoctorReview> = mutableListOf()
     val numOfCustomData = Random.nextInt(0, 5)
     for(i in 0 until numOfCustomData) {
         cusDataList.add(getRandomCustomData())

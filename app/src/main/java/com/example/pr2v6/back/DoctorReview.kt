@@ -4,7 +4,7 @@ import strIsLitsOnly
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-data class CustomData(
+data class DoctorReview(
     val reviewDate: LocalDateTime,
     val patientName: String,
     val reviewText: String,
@@ -15,6 +15,10 @@ data class CustomData(
         val returnStr: String = "$patientName\nОценка: $rating\nОтзыв от ${getDateFormatted()}: \"" +
                 "$reviewText\""
         return returnStr
+    }
+
+    fun getViewString(): String {
+        return "$patientName от ${getDateFormatted()}:"
     }
 
     fun toJSON(): String {
@@ -32,7 +36,7 @@ data class CustomData(
     }
 }
 
-fun getCustomDataFromString(str: String): CustomData? {
+fun getCustomDataFromString(str: String): DoctorReview? {
     val jsonObj = MyJsonObject(str, 0, 10)
     val parseResult = jsonObj.parse()
     if(!parseResult)
@@ -41,7 +45,7 @@ fun getCustomDataFromString(str: String): CustomData? {
     return getCustomDataFromJsonObject( jsonObj )
 }
 
-fun getCustomDataFromJsonObject(jsonObject: MyJsonObject ): CustomData? {
+fun getCustomDataFromJsonObject(jsonObject: MyJsonObject ): DoctorReview? {
     val date = jsonObject.getValueByKey("reviewDate")
     val name = jsonObject.getValueByKey("patientName")
     val review = jsonObject.getValueByKey("reviewText")
@@ -58,7 +62,7 @@ fun getCustomDataFromJsonObject(jsonObject: MyJsonObject ): CustomData? {
 
     val floatRating: Float = getFloatFromPair(rating) ?: return null
 
-    return CustomData(
+    return DoctorReview(
         reviewDate = dateTime,
         patientName = name.second,
         reviewText = review.second,
@@ -66,7 +70,7 @@ fun getCustomDataFromJsonObject(jsonObject: MyJsonObject ): CustomData? {
     )
 }
 
-fun parseCustomDataFromInput(): CustomData? {
+fun parseCustomDataFromInput(): DoctorReview? {
     print("Введите имя: ")
     val name: String? = readlnOrNull()
     if( name.isNullOrBlank() ) {
@@ -111,7 +115,7 @@ fun parseCustomDataFromInput(): CustomData? {
         return null
     }
 
-    return CustomData(
+    return DoctorReview(
         reviewDate = newDate,
         patientName = name,
         reviewText = review,

@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:padding="16dp"
-        app:layout_constraintBottom_toTopOf="@id/rvContacts"
+        app:layout_constraintBottom_toTopOf="@id/recyclerDoctors"
         tools:layout_editor_absoluteX="0dp">
 
         <TextView
@@ -34,7 +34,7 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvContacts"
+        android:id="@+id/recyclerDoctors"
         android:layout_width="421dp"
         android:layout_height="735dp"
         app:layout_constrainedHeight="false"

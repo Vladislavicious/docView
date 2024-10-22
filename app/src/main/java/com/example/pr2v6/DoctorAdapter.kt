@@ -7,14 +7,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentContainerView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pr2v6.back.Doctor
 import com.squareup.picasso.Picasso
-import kotlin.random.Random
 
-class DoctorAdapter (private val mDoctors: List<Doctor>,
-                     private val mFragmentParent: Fragment) : RecyclerView.Adapter<DoctorAdapter.ViewHolder>()
+class DoctorAdapter (private val mDoctors: List<Doctor>) : RecyclerView.Adapter<DoctorAdapter.ViewHolder>()
 {
     private var onClickListener: OnClickListener? = null
     // Provide a direct reference to each of the views within a data item
@@ -55,12 +52,7 @@ class DoctorAdapter (private val mDoctors: List<Doctor>,
         priceView.setText(doctor.consultationPrice.toString())
 
         val ratingView = viewHolder.ratingTextView
-        var ratingFloat: Float = doctor.getDoctorsRating()
-        var ratingText: String = ratingFloat.toString()
-        if( ratingFloat == 0.0f ) {
-            ratingText = "N/A"
-        }
-        ratingView.setText(ratingText)
+        ratingView.setText(doctor.getRatingString())
 
         val imag = viewHolder.imageView
         Picasso.get().load(IMAGES[position % IMAGES.size]).into(imag)
