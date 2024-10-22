@@ -43,4 +43,7 @@
     <string name="reviewRatingHint">Оценка</string>
     <string name="reviewReviewHint">Отзыв</string>
     <string name="ReviewsTitle">Отзывы</string>
+
+    <string name="timestampHint">Время консультации</string>
+    <string name="TimestampButtonString">Записаться</string>
 </resources>
