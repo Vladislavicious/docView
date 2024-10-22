@@ -51,8 +51,6 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val recyclerDoctors: RecyclerView = root.findViewById(R.id.recyclerDoctors)
-        // Initialize contacts
 
         if( false == DoctorList.initialize(DOCTORS_LIST_FILENAME) )
         {
@@ -60,29 +58,6 @@ class HomeFragment : Fragment() {
             for( i in 0..20 )
                 DoctorList.add(getRandomDoctor())
         }
-
-//        // Create adapter passing in the sample user data
-        val adapter = DoctorAdapter(DoctorList)
-//        // Attach the adapter to the recyclerview to populate items
-        recyclerDoctors.adapter = adapter
-//        // Set layout manager to position the items
-        var layoutMan = LinearLayoutManager(this.context)
-        recyclerDoctors.layoutManager = layoutMan
-
-        adapter.setOnClickListener(object : DoctorAdapter.OnClickListener {
-            override fun onClick(position: Int, model: Doctor) {
-                val intent: Intent = Intent(
-                    activity,
-                    DoctorActivity::class.java
-                )
-
-                val b = Bundle()
-                b.putInt("key", position) //Your id
-                intent.putExtras(b) //Put your id to your next Intent
-                startActivity(intent)
-            }
-        })
-
         /// search
 
         textView = root.findViewById(R.id.textView)
@@ -104,7 +79,38 @@ class HomeFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
+        initializeAdapter(DoctorList)
+
         return root
+    }
+
+    private fun initializeAdapter( doctorsList: List<Doctor> )
+    {
+
+        val recyclerDoctors: RecyclerView = binding.root.findViewById(R.id.recyclerDoctors)
+//        // Create adapter passing in the sample user data
+        val adapter = DoctorAdapter(doctorsList)
+//        // Attach the adapter to the recyclerview to populate items
+        recyclerDoctors.adapter = adapter
+//        // Set layout manager to position the items
+        var layoutMan = LinearLayoutManager(this.context)
+        recyclerDoctors.layoutManager = layoutMan
+
+        adapter.setOnClickListener(object : DoctorAdapter.OnClickListener {
+            override fun onClick(position: Int, model: Doctor) {
+                val intent: Intent = Intent(
+                    activity,
+                    DoctorActivity::class.java
+                )
+
+                val b = Bundle()
+                b.putInt("key", position) //Your id
+                intent.putExtras(b) //Put your id to your next Intent
+                startActivity(intent)
+            }
+        })
+        recyclerDoctors.invalidate()
+
     }
 
     private fun showPopupMenu(view: View) {
@@ -116,9 +122,9 @@ class HomeFragment : Fragment() {
             textView.text = menuItem.title // Обновляем текстовое поле
 
             if( menuItem.title == SPEC_OPTION_STR )
-                textView.hint = "Введите специализацию"
+                editText.hint = "Введите специализацию"
             else
-                textView.hint = "Введите цену"
+                editText.hint = "Введите цену"
 
             true
         }
@@ -136,10 +142,7 @@ class HomeFragment : Fragment() {
 
         if( input.length == 1 ) // Просто введён Enter
         {
-            val adapter = DoctorAdapter(DoctorList.findDoctorsWithPriceLessThan(Float.MAX_VALUE))
-            val rvContacts: RecyclerView = binding.root.findViewById(R.id.recyclerDoctors)
-            rvContacts.adapter = adapter
-            rvContacts.invalidate()
+            initializeAdapter(DoctorList.findDoctorsWithPriceLessThan(Float.MAX_VALUE))
             return
         }
 
@@ -158,28 +161,16 @@ class HomeFragment : Fragment() {
                 return
             }
 
-            Toast.makeText(activity, "ищем по цене $number", Toast.LENGTH_SHORT).show()
-            val adapter = DoctorAdapter(DoctorList.findDoctorsWithPriceLessThan(number))
-
-            val rvContacts: RecyclerView = binding.root.findViewById(R.id.recyclerDoctors)
-            rvContacts.adapter = adapter
-            rvContacts.invalidate()
+            initializeAdapter(DoctorList.findDoctorsWithPriceLessThan(number))
             return
         }
 
         if( textView.text == SPEC_OPTION_STR )
         {
-            Toast.makeText(activity, "ищем по спец", Toast.LENGTH_SHORT).show()
-
-            val adapter = DoctorAdapter(DoctorList.findDoctorsWithSameSpecialization(cleanInput))
-
-            val rvContacts: RecyclerView = binding.root.findViewById(R.id.recyclerDoctors)
-            rvContacts.adapter = adapter
-            rvContacts.invalidate()
+            initializeAdapter(DoctorList.findDoctorsWithSameSpecialization(cleanInput))
         }
         else {
             Toast.makeText(activity, "параметр не выбран", Toast.LENGTH_SHORT).show()
-
         }
 
     }

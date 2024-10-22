@@ -42,4 +42,5 @@
 
     <string name="reviewRatingHint">Оценка</string>
     <string name="reviewReviewHint">Отзыв</string>
+    <string name="ReviewsTitle">Отзывы</string>
 </resources>

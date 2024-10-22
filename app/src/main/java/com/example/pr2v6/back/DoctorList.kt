@@ -112,7 +112,7 @@ object DoctorList: HiddenBaseImpl( mutableListOf() ) {
         }
         lastGivenDoctorList = goodDoctors
 
-        return goodDoctors
+        return lastGivenDoctorList
     }
 
     fun findDoctorsWithSameSpecialization(specialization: String): List<Doctor> {
@@ -125,7 +125,7 @@ object DoctorList: HiddenBaseImpl( mutableListOf() ) {
 
         lastGivenDoctorList = goodDoctors
 
-        return goodDoctors
+        return lastGivenDoctorList
     }
 
     override fun toString(): String {

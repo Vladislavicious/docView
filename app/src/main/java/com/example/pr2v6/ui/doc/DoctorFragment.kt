@@ -53,12 +53,23 @@ class DoctorFragment : Fragment() {
 
         val recyclerReviews: RecyclerView = view.findViewById(R.id.reviewsRecyclerView)
 
-        val adapter = ReviewAdapter(doctor.getDoctorsReviews())
-//        // Attach the adapter to the recyclerview to populate items
-        recyclerReviews.adapter = adapter
-//        // Set layout manager to position the items
-        var layoutMan = LinearLayoutManager(this.context)
-        recyclerReviews.layoutManager = layoutMan
+        val reviewsHeader = view.findViewById<TextView>(R.id.reviewsTitleInDoctor)
+        val reviews = doctor.getDoctorsReviews()
+
+        if( reviews.isNotEmpty() )
+        {
+            val adapter = ReviewAdapter(reviews)
+    //        // Attach the adapter to the recyclerview to populate items
+            recyclerReviews.adapter = adapter
+    //        // Set layout manager to position the items
+            var layoutMan = LinearLayoutManager(this.context)
+            recyclerReviews.layoutManager = layoutMan
+            reviewsHeader.visibility = View.VISIBLE
+        }
+        else
+        {
+            reviewsHeader.visibility = View.GONE
+        }
 
         return view
     }
