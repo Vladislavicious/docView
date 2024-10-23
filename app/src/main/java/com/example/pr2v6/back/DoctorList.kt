@@ -26,8 +26,28 @@ object DoctorList: HiddenBaseImpl( mutableListOf() ) {
         return true
     }
 
+    fun getDoctorIndexByConsultation( consultation: Consultation ): Int {
+        for( (index, doctor) in lastGivenDoctorList.withIndex() )
+        {
+            if( doctor.isItDoctorsConsultation(consultation) )
+                return index
+        }
+        return -1
+    }
+
     fun getLastListItem(index: Int): Doctor {
         return lastGivenDoctorList[index]
+    }
+
+    fun deleteConsultationsFromDoctors( consultations: List<Consultation> ) {
+        for( doctor in lastGivenDoctorList )
+        {
+            doctor.deleteSchduleElements(consultations)
+        }
+        for( doctor in this )
+        {
+            doctor.deleteSchduleElements(consultations)
+        }
     }
 
     fun toJSON(): String {

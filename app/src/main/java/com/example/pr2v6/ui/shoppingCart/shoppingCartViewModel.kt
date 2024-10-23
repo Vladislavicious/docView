@@ -14,4 +14,10 @@ class shoppingCartViewModel : ViewModel() {
         value = "Оформить записи"
     }
     val buttonName: LiveData<String> = _buttonName
+
+
+    private val _declineButtonName = MutableLiveData<String>().apply {
+        value = "Отменить записи"
+    }
+    val declineButtonName: LiveData<String> = _declineButtonName
 }

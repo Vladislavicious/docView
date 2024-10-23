@@ -85,7 +85,7 @@ object ConsultationList: ListBaseImpl( mutableListOf() ) {
         return differentDates.count()
     }
 
-    private fun calculateTotalCost(): Float {
+    fun calculateTotalCost(): Float {
         var cost: Float = this.map { it.price }.sum()
         return cost
     }

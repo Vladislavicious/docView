@@ -51,4 +51,6 @@
     <string name="ShoppingCart">Shopping Cart</string>
     <string name="menu_shoppingCart">Shopping Cart</string>
     <string name="consultationDoctorNameHint">Имя врача</string>
+    <string name="shoppingCartBuy">Оформить</string>
+    <string name="DeclineButtonString">Отменить</string>
 </resources>

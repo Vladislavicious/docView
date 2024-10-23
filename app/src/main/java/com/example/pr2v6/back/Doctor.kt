@@ -161,6 +161,31 @@ class Doctor(
         return true
     }
 
+    fun deleteSchduleElements( consultationList: List<Consultation> ) {
+        val mutabl: MutableList<LocalDateTime> = this.workSchedule.toMutableList()
+
+        for( (index, consultation) in consultationList.withIndex() ) {
+            if( !isItDoctorsConsultation(consultation))
+                continue
+
+            mutabl.remove(consultation.time)
+        }
+
+        this.workSchedule = mutabl.toList()
+    }
+
+    fun isItDoctorsConsultation( consultation: Consultation ): Boolean {
+        if( consultation.doctorName != this.fullName ||
+            consultation.doctorSpecialization != this.specialization ||
+            consultation.price != this.consultationPrice)
+            return false
+
+        if( !this.workSchedule.contains(consultation.time) )
+            return false
+
+        return true
+    }
+
     fun getConsultation( position: Int ): Consultation {
         val time = this.workSchedule[position]
 

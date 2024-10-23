@@ -18,10 +18,31 @@
         android:layout_height="wrap_content"
         android:layout_weight="1" />
 
-    <Button
-        android:id="@+id/signUpButtonInShop"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:text="Button" />
+        android:layout_gravity="bottom|center"
+        android:gravity="bottom|center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/signUpButtonInShop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:gravity="bottom|center"
+            android:text="@string/shoppingCartBuy" />
+
+        <Button
+            android:id="@+id/declineButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_marginLeft="16dp"
+            android:backgroundTint="@color/dangerous"
+            android:gravity="bottom|center"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="@string/DeclineButtonString" />
+    </LinearLayout>
 </LinearLayout>
