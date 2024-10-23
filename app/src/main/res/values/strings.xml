@@ -6,15 +6,16 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_profile">Profile</string>
-    <string name="menu_settings">Settings</string>
+    <string name="menu_home">Главная</string>
+    <string name="menu_profile">Профиль</string>
+    <string name="menu_settings">Настройки</string>
+    <string name="menu_shoppingCart">Корзина</string>
 
     <!-- Login activity -->
-    <string name="login_activity_title">Authorization</string>
-    <string name="password_hint">password</string>
-    <string name="login_hint">login</string>
-    <string name="login_button">Authorize</string>
+    <string name="login_activity_title">Авторизация</string>
+    <string name="password_hint">Пароль</string>
+    <string name="login_hint">Логин</string>
+    <string name="login_button">Войти</string>
 
     <!-- Profile    -->
     <string name="ExitProfile_str">Выйти</string>
@@ -49,7 +50,6 @@
     <string name="AntiSignUpButtonString">Отменить</string>
     <string name="ConstultationHeader">Записи на консультацию</string>
     <string name="ShoppingCart">Shopping Cart</string>
-    <string name="menu_shoppingCart">Shopping Cart</string>
     <string name="consultationDoctorNameHint">Имя врача</string>
     <string name="shoppingCartBuy">Оформить</string>
     <string name="DeclineButtonString">Отменить</string>

@@ -19,6 +19,6 @@
         <item
             android:id="@+id/nav_shoppingCart"
             android:icon="?android:attr/actionModeFindDrawable"
-            android:title="@string/ShoppingCart" />
+            android:title="@string/menu_shoppingCart" />
     </group>
 </menu>

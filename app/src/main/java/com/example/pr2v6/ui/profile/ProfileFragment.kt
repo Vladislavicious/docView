@@ -59,6 +59,9 @@ class ProfileFragment : Fragment() {
         val exitButton: Button = binding.button
         exitButton.setOnClickListener {
             val intent = Intent(activity, LoginActivity::class.java)
+            val b = Bundle()
+            b.putInt("deauthorize", 1)
+            intent.putExtras(b)
             startActivity(intent)
         }
 

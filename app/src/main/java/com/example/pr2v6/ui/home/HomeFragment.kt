@@ -52,7 +52,7 @@ class HomeFragment : Fragment() {
         val root: View = binding.root
 
 
-        if( false == DoctorList.initialize(DOCTORS_LIST_FILENAME) )
+        if( false == DoctorList.initialize(DOCTORS_LIST_FILENAME, this.requireContext()) )
         {
             Log.i("home","bad doctor list init")
             for( i in 0..20 )
@@ -64,6 +64,9 @@ class HomeFragment : Fragment() {
         editText = root.findViewById(R.id.editText)
 
         // Настройка текстового поля для открытия подменю
+        textView.text = PRICE_OPTION_STR
+        editText.hint = "Введите цену"
+
         textView.setOnClickListener {
             showPopupMenu(it)
         }
@@ -103,7 +106,7 @@ class HomeFragment : Fragment() {
                     DoctorActivity::class.java
                 )
 
-                val b = Bundle() 
+                val b = Bundle()
                 b.putInt("key", position) //Your id
                 intent.putExtras(b) //Put your id to your next Intent
                 startActivity(intent)

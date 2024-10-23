@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
+import com.example.pr2v6.MainActivity
 import com.example.pr2v6.R
 
 class SplashActivity : AppCompatActivity() {
@@ -26,7 +27,7 @@ class SplashActivity : AppCompatActivity() {
             // creating a new intent
             val i = Intent(
                 this@SplashActivity,
-                LoginActivity::class.java
+                MainActivity::class.java
             )
             // on below line we are
             // starting a new activity.

@@ -54,13 +54,6 @@ class shoppingCartFragment : Fragment() {
         val header: TextView = binding.shopHeader
         val recyclerConsultations = binding.consultationRecyclerInShop
 
-        ShoppingCartViewModel.ConsultationsCount.observe(viewLifecycleOwner) {
-            if( it == 0 )
-            {
-                hideAll()
-            }
-        }
-
         if( ConsultationList.isEmpty() )
         {
             hideAll()
@@ -95,23 +88,35 @@ class shoppingCartFragment : Fragment() {
         })
 
         button.setOnClickListener {
+            if( ConsultationList.isEmpty() )
+            {
+                Toast.makeText(this.context, "Корзина пуста", Toast.LENGTH_SHORT).show()
+            }
+            else
+            {
+                Toast.makeText(this.context, "С вас ${ConsultationList.calculateTotalCost()}", Toast.LENGTH_SHORT).show()
 
-            Toast.makeText(this.context, "С вас ${ConsultationList.calculateTotalCost()}", Toast.LENGTH_SHORT).show()
+                DoctorList.deleteConsultationsFromDoctors(ConsultationList)
 
-            DoctorList.deleteConsultationsFromDoctors(ConsultationList)
-
-            ConsultationList.payForAll()
-
-
+                ConsultationList.payForAll()
+            }
             recyclerConsultations.invalidate()
             hideAll()
+
         }
 
         declineButton.setOnClickListener {
-            Toast.makeText(this.context, "Произошла отмена", Toast.LENGTH_SHORT).show()
-            ConsultationList.cancelAll()
+            if( ConsultationList.isEmpty() )
+            {
+                Toast.makeText(this.context, "Корзина пуста", Toast.LENGTH_SHORT).show()
+            }
+            else
+            {
+                Toast.makeText(this.context, "Произошла отмена", Toast.LENGTH_SHORT).show()
+                ConsultationList.cancelAll()
+            }
 
-            binding.consultationRecyclerInShop.invalidate()
+            recyclerConsultations.invalidate()
             hideAll()
         }
 

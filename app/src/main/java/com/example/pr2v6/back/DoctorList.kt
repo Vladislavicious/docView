@@ -1,3 +1,4 @@
+import android.content.Context
 import com.example.*
 import com.example.pr2v6.back.Doctor
 import com.example.pr2v6.back.getDoctorFromString
@@ -8,11 +9,16 @@ open class HiddenBaseImpl internal constructor( protected val _b: MutableList<Do
 object DoctorList: HiddenBaseImpl( mutableListOf() ) {
     private var fileName: String = ""
     private var lastGivenDoctorList: MutableList<Doctor> = mutableListOf()
+    private lateinit var fw: FileWorker
+    private var initialized: Boolean = false
 
-    fun initialize(filename: String): Boolean {
+    fun initialize(filename: String, context: Context): Boolean {
+        if( initialized )
+            return true
+
         this.fileName = filename
-
-        val fileContent = readFileContents(this.fileName) ?: return false
+        fw = FileWorker(context)
+        val fileContent = fw.readFileContents(this.fileName) ?: return false
 
         val Indexes = findContentBetweenBraces('[', 0, fileContent) ?: return false
 
@@ -23,7 +29,8 @@ object DoctorList: HiddenBaseImpl( mutableListOf() ) {
         }
         lastGivenDoctorList = this
 
-        return true
+        initialized = true
+        return initialized
     }
 
     fun getDoctorIndexByConsultation( consultation: Consultation ): Int {
@@ -53,6 +60,8 @@ object DoctorList: HiddenBaseImpl( mutableListOf() ) {
         {
             doctor.deleteSchduleElements(consultations)
         }
+
+        rewriteBackToFile()
     }
 
     fun toJSON(): String {
@@ -73,7 +82,7 @@ object DoctorList: HiddenBaseImpl( mutableListOf() ) {
     }
 
     fun delete(): Boolean {
-        return deleteFile(this.fileName)
+        return fw.deleteFile(this.fileName)
     }
 
     override fun add(element: Doctor): Boolean {
@@ -110,14 +119,14 @@ object DoctorList: HiddenBaseImpl( mutableListOf() ) {
     private fun rewriteBackToFile(): Boolean {
         if( !truncateFile()  ) return false
 
-        return writeInFile(
+        return fw.writeInFile(
             this.fileName,
             this.toJSON()
         )
     }
 
     private fun truncateFile(): Boolean {
-        if( truncateFile(this.fileName) != true ) {
+        if( fw.truncateFile(this.fileName) != true ) {
             println("couldn't truncate file")
             return false
         }

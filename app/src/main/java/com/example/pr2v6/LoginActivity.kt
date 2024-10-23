@@ -15,9 +15,35 @@ import com.example.pr2v6.R
 class LoginActivity : AppCompatActivity() {
     private lateinit var editTextLogin: EditText
     private lateinit var editTextPassword: EditText
+    private var authorized: Boolean = true
     private lateinit var buttonLogin: Button
 
     private lateinit var sharedPreferences: SharedPreferences
+
+
+
+    private fun CheckIfPasswordOk(): Boolean {
+        if( !authorized )
+        {
+            val login = editTextLogin.text.toString()
+            val password = editTextPassword.text.toString()
+
+            if (login.isNotEmpty() && password.isNotEmpty()) {
+                // Сохраняем введенные данные
+                authorized = true
+                saveCredentials(login, password)
+                Toast.makeText(this, "Успешный вход!", Toast.LENGTH_SHORT).show()
+            }
+            else
+                return false
+        }
+
+        val intent = Intent(this, SplashActivity::class.java)
+        startActivity(intent)
+        return true
+    }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,18 +59,26 @@ class LoginActivity : AppCompatActivity() {
         // Загружаем сохраненные данные, если они есть
         loadSavedCredentials()
 
+        var b = getIntent().getExtras()
+        var value: Int = -1
+        if( b != null )
+        {
+            value = b.getInt("deauthorize")
+            authorized = false
+            saveCredentials("", "")
+        }
+
+        if( authorized )
+        {
+            val intent = Intent(this, SplashActivity::class.java)
+            startActivity(intent)
+        }
+
         buttonLogin.setOnClickListener {
             val login = editTextLogin.text.toString()
             val password = editTextPassword.text.toString()
 
-            if (login.isNotEmpty() && password.isNotEmpty()) {
-                // Сохраняем введенные данные
-                saveCredentials(login, password)
-                Toast.makeText(this, "Успешный вход!", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, MainActivity::class.java)
-
-                startActivity(intent)
-            } else {
+            if( !this.CheckIfPasswordOk() ) {
                 var stroka: StringBuilder = StringBuilder("Введите ")
                 if( login.isEmpty() ) {
                     stroka.append("логин")
@@ -62,6 +96,7 @@ class LoginActivity : AppCompatActivity() {
     private fun saveCredentials(login: String, password: String) {
         val editor = sharedPreferences.edit()
         editor.putString("LOGIN", login)
+        editor.putBoolean("AUTH", authorized)
         editor.putString("PASSWORD", password)
         editor.apply()
     }
@@ -69,8 +104,10 @@ class LoginActivity : AppCompatActivity() {
     private fun loadSavedCredentials() {
         val savedLogin = sharedPreferences.getString("LOGIN", null)
         val savedPassword = sharedPreferences.getString("PASSWORD", null)
+        authorized = sharedPreferences.getBoolean("AUTH", false)
 
-        if (savedLogin != null && savedPassword != null) {
+        if (savedLogin != null &&
+            savedPassword != null ) {
             editTextLogin.setText(savedLogin)
             editTextPassword.setText(savedPassword)
         }

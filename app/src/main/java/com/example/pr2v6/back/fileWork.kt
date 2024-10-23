@@ -1,59 +1,41 @@
+import android.content.Context
 import java.io.File
-import java.io.IOException
-import java.io.PrintWriter
 
-fun deleteFile(filePath: String): Boolean {
-    val file = File(filePath)
-    if( !file.exists() )
-        return true
+class FileWorker(private val context: Context) {
 
-    try {
-        file.delete()
+
+    fun deleteFile(filePath: String): Boolean {
+        if( filePath in context.fileList() )
+            return context.deleteFile(filePath)
         return true
-    } catch (e: IOException) {
-        return false
     }
-}
 
-fun openOrCreateFile(filePath: String): File? {
-    val file = File(filePath)
-    if (!file.exists()) {
-        try {
-            file.createNewFile()
-            return file
-        } catch (e: IOException) {
+    fun readFileContents( fileName: String ): String? {
+        val file = File(context.filesDir, fileName)
+        if( file.length() == 0L )
             return null
-        }
+        return file.readText()
+
     }
-    return file
-}
 
-fun readFileContents( fileName: String ): String? {
-    val file = openOrCreateFile(fileName)?: return null
+    fun truncateFile(filePath: String ): Boolean {
+        if( !deleteFile(filePath) )
+            return false
 
-    return if (file.length() == 0L) {
-        null
-    } else {
-        try {
-            file.readText()
-        } catch (e: IOException) {
-            null
-        }
+        return writeInFile(filePath, "")
     }
-}
 
-fun truncateFile( fileName: String ): Boolean {
-    try {
-        PrintWriter(fileName).use { }
-    } catch (e: IOException) {
+    fun writeInFile(filePath: String, str: String): Boolean {
+        context.openFileOutput(filePath, Context.MODE_PRIVATE).use {
+            it.write(str.toByteArray())
+            return true
+        }
         return false
     }
-    return true
 }
 
-fun writeInFile( fileName: String, str: String): Boolean {
-    val file = openOrCreateFile(fileName)?: return false
 
-    file.writeText(str)
-    return true
-}
+
+
+
+
