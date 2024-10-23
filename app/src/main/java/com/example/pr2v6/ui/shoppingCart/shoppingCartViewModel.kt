@@ -5,12 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class shoppingCartViewModel : ViewModel() {
-
-    private val _header = MutableLiveData<String>().apply {
-        value = "Записи на консультации"
-    }
-    val header: LiveData<String> = _header
-
     private val _noItems = MutableLiveData<String>().apply {
         value = "Нет записей"
     }

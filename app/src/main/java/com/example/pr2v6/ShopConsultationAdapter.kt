@@ -10,8 +10,8 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ConsultationAdapter (private val mConsultations: List<Consultation>,
-                           private val mContext: Context?) : RecyclerView.Adapter<ConsultationAdapter.ViewHolder>()
+class ShopConsultationAdapter (private val mConsultations: List<Consultation>,
+                           private val mContext: Context?) : RecyclerView.Adapter<ShopConsultationAdapter.ViewHolder>()
 {
     private var onClickListener: OnClickListener? = null
     // Provide a direct reference to each of the views within a data item
@@ -20,6 +20,7 @@ class ConsultationAdapter (private val mConsultations: List<Consultation>,
         // Your holder should contain and initialize a member variable
         // for any view that will be set as you render a row
         val timestampView = itemView.findViewById<TextView>(R.id.timestampHeader)
+        val doctorNameView = itemView.findViewById<TextView>(R.id.consultationDoctorNameHeader)
         val buttonView = itemView.findViewById<Button>(R.id.signUpButton)
     }
 
@@ -29,7 +30,7 @@ class ConsultationAdapter (private val mConsultations: List<Consultation>,
         val context = parent.context
         val inflater = LayoutInflater.from(context)
         // Inflate the custom layout
-        val consultationView = inflater.inflate(R.layout.item_consultation, parent, false)
+        val consultationView = inflater.inflate(R.layout.item_shop_consultation, parent, false)
         // Return a new holder instance
         return ViewHolder(consultationView)
     }
@@ -39,8 +40,11 @@ class ConsultationAdapter (private val mConsultations: List<Consultation>,
         // Get the data model based on position
         val consultation: Consultation = mConsultations.get(position)
         // Set item views based on your views and data model
-        val nameView = viewHolder.timestampView
-        nameView.setText(consultation.getTimeFormatted())
+        val timestampView = viewHolder.timestampView
+        timestampView.setText(consultation.getTimeFormatted())
+
+        val doctorName = viewHolder.doctorNameView
+        doctorName.setText(consultation.doctorName)
 
         val button = viewHolder.buttonView
 

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pr2v6.ConsultationAdapter
+import com.example.pr2v6.ShopConsultationAdapter
 import com.example.pr2v6.databinding.FragmentShoppingCartBinding
 
 class shoppingCartFragment : Fragment() {
@@ -43,16 +44,13 @@ class shoppingCartFragment : Fragment() {
 
         if( ConsultationList.isNotEmpty() )
         {
-            val consAdapter = ConsultationAdapter(ConsultationList, this.context)
+            val consAdapter = ShopConsultationAdapter(ConsultationList, this.context)
             //        // Attach the adapter to the recyclerview to populate items
             recyclerConsultations.adapter = consAdapter
             //        // Set layout manager to position the items
             var layoutMan = LinearLayoutManager(this.context)
             recyclerConsultations.layoutManager = layoutMan
-
-            ShoppingCartViewModel.header.observe(viewLifecycleOwner) {
-                header.text = it
-            }
+            header.visibility = View.GONE
             button.visibility = View.VISIBLE
         }
         else
@@ -60,6 +58,7 @@ class shoppingCartFragment : Fragment() {
             ShoppingCartViewModel.noItems.observe(viewLifecycleOwner) {
                 header.text = it
             }
+            header.visibility = View.VISIBLE
             button.visibility = View.GONE
         }
 
