@@ -48,4 +48,6 @@
     <string name="SignUpButtonString">Записаться</string>
     <string name="AntiSignUpButtonString">Отменить</string>
     <string name="ConstultationHeader">Записи на консультацию</string>
+    <string name="ShoppingCart">Shopping Cart</string>
+    <string name="menu_shoppingCart">Shopping Cart</string>
 </resources>

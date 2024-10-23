@@ -1,10 +1,7 @@
 package com.example.pr2v6
 
-import DoctorList
-import android.app.Application
 import android.os.Bundle
 import android.view.Menu
-import android.widget.LinearLayout
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -13,17 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.pr2v6.databinding.ActivityMainBinding
-
-class App: Application() {
-    private val doctorList = DoctorList
-
-    fun getDoctorList(): DoctorList {
-        return doctorList
-    }
-}
 
 class MainActivity : AppCompatActivity() {
 
@@ -45,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_profile, R.id.nav_settings
+                R.id.nav_home, R.id.nav_profile, R.id.nav_settings, R.id.nav_shoppingCart
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
