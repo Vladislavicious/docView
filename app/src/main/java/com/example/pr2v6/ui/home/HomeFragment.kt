@@ -103,7 +103,7 @@ class HomeFragment : Fragment() {
                     DoctorActivity::class.java
                 )
 
-                val b = Bundle()
+                val b = Bundle() 
                 b.putInt("key", position) //Your id
                 intent.putExtras(b) //Put your id to your next Intent
                 startActivity(intent)

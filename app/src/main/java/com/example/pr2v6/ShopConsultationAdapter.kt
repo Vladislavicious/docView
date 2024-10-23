@@ -48,20 +48,17 @@ class ShopConsultationAdapter (private val mConsultations: List<Consultation>,
 
         val button = viewHolder.buttonView
 
-        decideButtonAppearance(button, isConsultationChecked(consultation) )
+        decideButtonAppearance(button, true )
 
         button.setOnClickListener {
-            var checked: Boolean = isConsultationChecked(consultation)
-            if( checked )
-            {
-                ConsultationList.remove(consultation)
-            }
-            else
-            {
-                ConsultationList.add(consultation)
-            }
+            decideButtonAppearance(button, true)
 
-            decideButtonAppearance(button, !checked)
+            ConsultationList.remove(consultation)
+//            notifyItemRemoved(position)
+            if( position == 0)
+                notifyDataSetChanged()
+            else
+                notifyItemRemoved(position)
         }
 
         viewHolder.itemView.setOnClickListener {

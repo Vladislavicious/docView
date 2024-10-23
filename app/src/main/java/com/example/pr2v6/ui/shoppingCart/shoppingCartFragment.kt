@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pr2v6.DoctorActivity
@@ -23,6 +24,9 @@ class shoppingCartFragment : Fragment() {
 
     private var _binding: FragmentShoppingCartBinding? = null
     private lateinit var noItemString: String
+
+    private var consultations: MutableList<Consultation>? = null
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -43,12 +47,19 @@ class shoppingCartFragment : Fragment() {
             noItemString = it
         }
 
+
         val button: Button = binding.signUpButtonInShop
         val declineButton: Button = binding.declineButton
 
         val header: TextView = binding.shopHeader
         val recyclerConsultations = binding.consultationRecyclerInShop
 
+        ShoppingCartViewModel.ConsultationsCount.observe(viewLifecycleOwner) {
+            if( it == 0 )
+            {
+                hideAll()
+            }
+        }
 
         if( ConsultationList.isEmpty() )
         {
@@ -92,7 +103,7 @@ class shoppingCartFragment : Fragment() {
             ConsultationList.payForAll()
 
 
-            binding.consultationRecyclerInShop.invalidate()
+            recyclerConsultations.invalidate()
             hideAll()
         }
 

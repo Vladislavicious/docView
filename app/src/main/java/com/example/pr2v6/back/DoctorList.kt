@@ -39,6 +39,11 @@ object DoctorList: HiddenBaseImpl( mutableListOf() ) {
         return lastGivenDoctorList[index]
     }
 
+    fun getOriginalPositionFromFiltered(position: Int): Int {
+        val doctor = getLastListItem(position)
+        return this.indexOf(doctor)
+    }
+
     fun deleteConsultationsFromDoctors( consultations: List<Consultation> ) {
         for( doctor in lastGivenDoctorList )
         {

@@ -40,7 +40,7 @@ class DoctorAdapter (private val mDoctors: List<Doctor>) : RecyclerView.Adapter<
     // Involves populating data into the item through holder
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         // Get the data model based on position
-        val doctor: Doctor = mDoctors.get(position)
+        val doctor: Doctor = mDoctors[position]
         // Set item views based on your views and data model
         val nameView = viewHolder.nameTextView
         nameView.setText(doctor.getFullNameFormatted())
@@ -55,7 +55,8 @@ class DoctorAdapter (private val mDoctors: List<Doctor>) : RecyclerView.Adapter<
         ratingView.setText(doctor.getRatingString())
 
         val imag = viewHolder.imageView
-        Picasso.get().load(IMAGES[position % IMAGES.size]).into(imag)
+        val relativePosition = DoctorList.getOriginalPositionFromFiltered(position)
+        Picasso.get().load(IMAGES[relativePosition % IMAGES.size]).into(imag)
 
         viewHolder.itemView.setOnClickListener {
             onClickListener?.onClick(position, doctor)

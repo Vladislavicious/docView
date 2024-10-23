@@ -50,7 +50,8 @@ class DoctorFragment : Fragment() {
         priceTextView.text = doctor.consultationPrice.toString()
         ratingTextView.text = doctor.getRatingString()
 
-        Picasso.get().load(IMAGES[doctorIndex % IMAGES.size]).into(imageView)
+        val relativePosition = DoctorList.getOriginalPositionFromFiltered(doctorIndex)
+        Picasso.get().load(IMAGES[relativePosition % IMAGES.size]).into(imageView)
 
         val recyclerReviews: RecyclerView = view.findViewById(R.id.reviewsRecyclerView)
         val reviewsHeader = view.findViewById<TextView>(R.id.reviewsTitleInDoctor)
