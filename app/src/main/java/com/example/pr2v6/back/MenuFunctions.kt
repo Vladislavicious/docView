@@ -117,7 +117,7 @@ fun signUpForConsultation() {
         return
     }
 
-    ConsultationList.add(dctr.getConsultation())
+    ConsultationList.add(dctr.getConsultation(0))
     println("Сделана предварительная запись к доктору ${dctr.getFullNameFormatted()}")
 }
 

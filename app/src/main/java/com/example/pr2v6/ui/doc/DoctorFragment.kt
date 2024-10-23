@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.pr2v6.ConsultationAdapter
 
 import com.example.pr2v6.R
 import com.example.pr2v6.ReviewAdapter
@@ -52,10 +53,9 @@ class DoctorFragment : Fragment() {
         Picasso.get().load(IMAGES[doctorIndex % IMAGES.size]).into(imageView)
 
         val recyclerReviews: RecyclerView = view.findViewById(R.id.reviewsRecyclerView)
-
         val reviewsHeader = view.findViewById<TextView>(R.id.reviewsTitleInDoctor)
-        val reviews = doctor.getDoctorsReviews()
 
+        val reviews = doctor.getDoctorsReviews()
         if( reviews.isNotEmpty() )
         {
             val adapter = ReviewAdapter(reviews)
@@ -69,6 +69,25 @@ class DoctorFragment : Fragment() {
         else
         {
             reviewsHeader.visibility = View.GONE
+        }
+
+        val recyclerConsultations: RecyclerView = view.findViewById(R.id.consultationsRecyclerView)
+        val consultationsHeader = view.findViewById<TextView>(R.id.consultationsTitleInDoctor)
+
+        val consultations = doctor.getDoctorsConsultations()
+        if( consultations.isNotEmpty() )
+        {
+            val consAdapter = ConsultationAdapter(consultations, this.context)
+            //        // Attach the adapter to the recyclerview to populate items
+            recyclerConsultations.adapter = consAdapter
+            //        // Set layout manager to position the items
+            var layoutMan = LinearLayoutManager(this.context)
+            recyclerConsultations.layoutManager = layoutMan
+            consultationsHeader.visibility = View.VISIBLE
+        }
+        else
+        {
+            consultationsHeader.visibility = View.GONE
         }
 
         return view

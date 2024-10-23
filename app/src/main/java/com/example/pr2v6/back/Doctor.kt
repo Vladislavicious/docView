@@ -161,14 +161,10 @@ class Doctor(
         return true
     }
 
-    fun getConsultation(): Consultation {
-        val time: LocalDateTime
-        if( this.workSchedule.isNotEmpty() )
-            time = this.workSchedule[0]
-        else
-            time = LocalDateTime.now()
+    fun getConsultation( position: Int ): Consultation {
+        val time = this.workSchedule[position]
 
-        return Consultation(time, this.getFullNameFormatted(), this.specialization, this.consultationPrice)
+        return Consultation(time, this.fullName, this.specialization, this.consultationPrice)
     }
 
     private fun getReviewsFormatted(): String {
@@ -198,6 +194,16 @@ class Doctor(
 
     fun getDoctorsWorkSchedule(): List<LocalDateTime> {
         return workSchedule
+    }
+
+    fun getDoctorsConsultations(): List<Consultation> {
+        val returnList: MutableList<Consultation> = mutableListOf()
+        for( index in 0 until this.workSchedule.size )
+        {
+            returnList.add( getConsultation(index) )
+        }
+
+        return returnList
     }
     fun getDoctorsReviews(): List<DoctorReview> {
         return patientReviews
@@ -368,7 +374,7 @@ fun parseDoctorFromInput(): Doctor? {
     )
 }
 
-fun getRandomCustomData(): DoctorReview {
+fun getRandomReview(): DoctorReview {
     return DoctorReview(
         reviewDate = LocalDateTime.now(),
         patientName = getRandomString(7),
@@ -381,13 +387,23 @@ fun getRandomDoctor(): Doctor {
     val scheduleList: MutableList<LocalDateTime> = mutableListOf()
     val numOfSchedules = Random.nextInt(1, 8)
     for(i in 0 until numOfSchedules) {
-        scheduleList.add(LocalDateTime.now())
+        val addition = Random.nextLong(0, 600)
+        var newDateTime = LocalDateTime.now().plusMinutes(addition)
+        if( scheduleList.contains(newDateTime))
+        {
+            continue
+        }
+        else
+        {
+            scheduleList.add( newDateTime )
+        }
     }
+    scheduleList.sort()
 
     val cusDataList: MutableList<DoctorReview> = mutableListOf()
     val numOfCustomData = Random.nextInt(0, 5)
     for(i in 0 until numOfCustomData) {
-        cusDataList.add(getRandomCustomData())
+        cusDataList.add(getRandomReview())
     }
 
     return Doctor(

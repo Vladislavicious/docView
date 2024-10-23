@@ -45,5 +45,7 @@
     <string name="ReviewsTitle">Отзывы</string>
 
     <string name="timestampHint">Время консультации</string>
-    <string name="TimestampButtonString">Записаться</string>
+    <string name="SignUpButtonString">Записаться</string>
+    <string name="AntiSignUpButtonString">Отменить</string>
+    <string name="ConstultationHeader">Записи на консультацию</string>
 </resources>

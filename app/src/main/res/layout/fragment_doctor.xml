@@ -10,128 +10,160 @@
     android:padding="0dp">
 
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp">
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/imageViewInDoctorFragment"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center"
-            android:scaleType="centerCrop"
-            app:shapeAppearanceOverlay="@style/circleImageView"
-            app:strokeWidth="1dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:paddingStart="16dp"
-        android:paddingTop="16dp"
-        android:paddingEnd="16dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:orientation="vertical">
+            android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/doctorFragmentNameHint"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="@string/doctorNameHint"
-                android:textColor="@color/hint_text" />
+                android:orientation="vertical"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imageViewInDoctorFragment"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/circleImageView"
+                    app:strokeWidth="1dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="16dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/doctorFragmentNameHint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/doctorNameHint"
+                        android:textColor="@color/hint_text" />
+
+                    <TextView
+                        android:id="@+id/doctorFragmentName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/doctorFragmentSpecHint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/doctorSpecHint"
+                        android:textColor="@color/hint_text" />
+
+                    <TextView
+                        android:id="@+id/doctorFragmentSpecialization"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/SecondLinearLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/doctorFragmentPriceHint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/doctorPriceHint"
+                        android:textAlignment="viewEnd"
+                        android:textColor="@color/hint_text" />
+
+                    <TextView
+                        android:id="@+id/doctorFragmentPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:textAlignment="viewEnd"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/doctorFragmentRatingHint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/doctorRatingHint"
+                        android:textAlignment="viewEnd"
+                        android:textColor="@color/hint_text" />
+
+                    <TextView
+                        android:id="@+id/doctorFragmentRating"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:textAlignment="viewEnd"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/doctorFragmentName"
-                android:layout_width="match_parent"
+                android:id="@+id/reviewsTitleInDoctor"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:textSize="20sp" />
+                android:layout_gravity="center"
+                android:paddingTop="16dp"
+                android:text="@string/ReviewsTitle"
+                android:textSize="24sp"
+                tools:text="@string/ReviewsTitle" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/reviewsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingTop="16dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
 
             <TextView
-                android:id="@+id/doctorFragmentSpecHint"
-                android:layout_width="match_parent"
+                android:id="@+id/consultationsTitleInDoctor"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="@string/doctorSpecHint"
-                android:textColor="@color/hint_text" />
+                android:layout_gravity="center"
+                android:paddingTop="16dp"
+                android:text="@string/ConstultationHeader"
+                android:textSize="24sp"
+                tools:text="@string/ConstultationHeader" />
 
-            <TextView
-                android:id="@+id/doctorFragmentSpecialization"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/consultationsRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:textSize="20sp" />
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingTop="16dp">
 
+            </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/SecondLinearLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/doctorFragmentPriceHint"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="@string/doctorPriceHint"
-                android:textAlignment="viewEnd"
-                android:textColor="@color/hint_text" />
-
-            <TextView
-                android:id="@+id/doctorFragmentPrice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:textAlignment="viewEnd"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/doctorFragmentRatingHint"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="@string/doctorRatingHint"
-                android:textAlignment="viewEnd"
-                android:textColor="@color/hint_text" />
-
-            <TextView
-                android:id="@+id/doctorFragmentRating"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:textAlignment="viewEnd"
-                android:textSize="20sp" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/reviewsTitleInDoctor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:paddingTop="16dp"
-        android:text="@string/ReviewsTitle"
-        android:textSize="24sp"
-        tools:text="@string/ReviewsTitle" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/reviewsRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:paddingTop="16dp" />
+    </ScrollView>
 
 </LinearLayout>

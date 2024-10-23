@@ -11,6 +11,18 @@ class Consultation ( val time: LocalDateTime,
     fun getTimeFormatted(): String {
         return time.format(DateTimeFormatter.ofPattern(DATA_FORMAT))
     }
+
+    override fun equals(other: Any?): Boolean {
+        if( ! (other is Consultation) )
+            return false
+
+        if( time == other.time &&
+            doctorName == other.doctorName &&
+            doctorSpecialization == other.doctorSpecialization &&
+            price == other.price )
+            return true
+        return false
+    }
 }
 
 open class ListBaseImpl internal constructor( protected val _b: MutableList<Consultation> ) : MutableList<Consultation> by _b

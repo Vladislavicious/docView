@@ -73,7 +73,7 @@ class HomeFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 // Реакция на ввод текста
-                handleInputChange(s.toString())
+                val NeedToUpdateList = handleInputChange(s.toString())
             }
 
             override fun afterTextChanged(s: Editable?) {}
@@ -113,6 +113,11 @@ class HomeFragment : Fragment() {
 
     }
 
+    private fun HideItemsThatsNotInFindList( findList: List<Doctor> )
+    {
+        initializeAdapter(findList)
+    }
+
     private fun showPopupMenu(view: View) {
         val popupMenu = PopupMenu( this.activity, view)
         popupMenu.menu.add(PRICE_OPTION_STR)
@@ -132,23 +137,24 @@ class HomeFragment : Fragment() {
         popupMenu.show()
     }
 
-    private fun handleInputChange(input: String) {
+    private fun handleInputChange(input: String): Boolean {
         // Реакция на изменение текста в поле ввода
 
         if( !input.contains("\n") )
-            return
+            return false
 
         editText.setText("")
 
         if( input.length == 1 ) // Просто введён Enter
         {
-            initializeAdapter(DoctorList.findDoctorsWithPriceLessThan(Float.MAX_VALUE))
-            return
+
+            HideItemsThatsNotInFindList(DoctorList.findDoctorsWithPriceLessThan(Float.MAX_VALUE))
+            return true
         }
 
         if( input.length >= 21 ) {
             Toast.makeText(activity, "line too long", Toast.LENGTH_SHORT).show()
-            return
+            return false
         }
 
         val cleanInput = input.trim()
@@ -158,21 +164,23 @@ class HomeFragment : Fragment() {
             val number = cleanInput.toFloatOrNull()
             if( number == null ) {
                 Toast.makeText(activity, "not a number", Toast.LENGTH_SHORT).show()
-                return
+                return false
             }
 
-            initializeAdapter(DoctorList.findDoctorsWithPriceLessThan(number))
-            return
+            HideItemsThatsNotInFindList(DoctorList.findDoctorsWithPriceLessThan(number))
+            return true
         }
 
         if( textView.text == SPEC_OPTION_STR )
         {
-            initializeAdapter(DoctorList.findDoctorsWithSameSpecialization(cleanInput))
+            HideItemsThatsNotInFindList(DoctorList.findDoctorsWithSameSpecialization(cleanInput))
+            return true
         }
         else {
             Toast.makeText(activity, "параметр не выбран", Toast.LENGTH_SHORT).show()
         }
 
+        return false
     }
 
     override fun onDestroyView() {
