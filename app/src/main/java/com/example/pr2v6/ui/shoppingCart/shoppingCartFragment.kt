@@ -3,6 +3,7 @@ package com.example.pr2v6.ui.shoppingCart
 import Consultation
 import ConsultationList
 import DoctorList
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -47,6 +49,8 @@ class shoppingCartFragment : Fragment() {
             noItemString = it
         }
 
+        val totalCost: TextView = binding.consultationTotalCost
+        totalCost.text = "Стоимость: ${ConsultationList.calculateTotalCost()} ₽"
 
         val button: Button = binding.signUpButtonInShop
         val declineButton: Button = binding.declineButton
@@ -87,6 +91,12 @@ class shoppingCartFragment : Fragment() {
             }
         })
 
+        consAdapter.setOnChangeListener(object: ShopConsultationAdapter.OnChangeListener {
+            override fun onChange() {
+                AdjustData()
+            }
+        })
+
         button.setOnClickListener {
             if( ConsultationList.isEmpty() )
             {
@@ -100,7 +110,7 @@ class shoppingCartFragment : Fragment() {
 
                 ConsultationList.payForAll()
             }
-            recyclerConsultations.invalidate()
+            recyclerConsultations.adapter!!.notifyDataSetChanged()
             hideAll()
 
         }
@@ -116,16 +126,30 @@ class shoppingCartFragment : Fragment() {
                 ConsultationList.cancelAll()
             }
 
-            recyclerConsultations.invalidate()
+            recyclerConsultations.adapter!!.notifyDataSetChanged()
             hideAll()
         }
 
         return root
     }
+    private fun AdjustData() {
+        if( ConsultationList.isEmpty() ) {
+            hideAll()
+            return
+        }
+
+        val totalCost: TextView = binding.consultationTotalCost
+        totalCost.text = "Стоимость: ${ConsultationList.calculateTotalCost()} ₽"
+        val recyclerConsultations = binding.consultationRecyclerInShop
+        recyclerConsultations.adapter!!.notifyDataSetChanged()
+    }
 
     private fun hideAll() {
         val ShoppingCartViewModel =
             ViewModelProvider(this).get(shoppingCartViewModel::class.java)
+
+
+        val totalCost: TextView = binding.consultationTotalCost
 
         val button: Button = binding.signUpButtonInShop
         val declineButton: Button = binding.declineButton
@@ -138,6 +162,13 @@ class shoppingCartFragment : Fragment() {
         header.visibility = View.VISIBLE
         button.visibility = View.GONE
         declineButton.visibility = View.GONE
+        totalCost.visibility = View.GONE
+    }
+
+    override fun onResume() {
+        super.onResume()
+        AdjustData()
+
     }
 
     override fun onDestroyView() {

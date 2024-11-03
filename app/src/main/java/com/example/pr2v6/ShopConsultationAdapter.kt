@@ -14,6 +14,7 @@ class ShopConsultationAdapter (private val mConsultations: List<Consultation>,
                            private val mContext: Context?) : RecyclerView.Adapter<ShopConsultationAdapter.ViewHolder>()
 {
     private var onClickListener: OnClickListener? = null
+    private var onChangeListener: OnChangeListener? = null
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -21,6 +22,7 @@ class ShopConsultationAdapter (private val mConsultations: List<Consultation>,
         // for any view that will be set as you render a row
         val timestampView = itemView.findViewById<TextView>(R.id.timestampHeader)
         val doctorNameView = itemView.findViewById<TextView>(R.id.consultationDoctorNameHeader)
+        val priceView = itemView.findViewById<TextView>(R.id.consultationCost)
         val buttonView = itemView.findViewById<Button>(R.id.signUpButton)
     }
 
@@ -46,19 +48,22 @@ class ShopConsultationAdapter (private val mConsultations: List<Consultation>,
         val doctorName = viewHolder.doctorNameView
         doctorName.setText(consultation.doctorName)
 
+        val cost = viewHolder.priceView
+        cost.setText(consultation.price.toString())
+        
         val button = viewHolder.buttonView
 
         decideButtonAppearance(button, true )
 
         button.setOnClickListener {
-            decideButtonAppearance(button, true)
-
             ConsultationList.remove(consultation)
 //            notifyItemRemoved(position)
             if( position == 0)
                 notifyDataSetChanged()
             else
                 notifyItemRemoved(position)
+
+            onChangeListener!!.onChange()
         }
 
         viewHolder.itemView.setOnClickListener {
@@ -99,6 +104,14 @@ class ShopConsultationAdapter (private val mConsultations: List<Consultation>,
         fun onClick(position: Int, model: Consultation)
     }
 
+    fun setOnChangeListener(listener: OnChangeListener?) {
+        this.onChangeListener = listener
+    }
+
+    // Interface for the click listener
+    interface OnChangeListener {
+        fun onChange()
+    }
     // Returns the total count of items in the list
     override fun getItemCount(): Int {
         return mConsultations.size

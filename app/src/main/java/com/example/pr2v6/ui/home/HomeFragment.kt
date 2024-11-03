@@ -60,7 +60,7 @@ class HomeFragment : Fragment() {
         }
         /// search
 
-        textView = root.findViewById(R.id.textView)
+        textView = root.findViewById(R.id.chooseParameter)
         editText = root.findViewById(R.id.editText)
 
         // Настройка текстового поля для открытия подменю

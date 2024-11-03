@@ -8,6 +8,7 @@
     android:layout_marginBottom="0dp"
     android:gravity="center"
     android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".ui.profile.shoppingCartFragment">
 
     <androidx.fragment.app.FragmentContainerView
@@ -41,6 +42,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="20dp"
         android:layout_weight="0"
+        android:paddingTop="16dp"
         android:textAlignment="center"
         android:textSize="24sp" />
 
@@ -66,6 +68,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="20dp"
         android:layout_weight="0"
+        android:paddingTop="16dp"
         android:textAlignment="center"
         android:textSize="24sp" />
 
@@ -91,6 +94,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="20dp"
         android:layout_weight="0"
+        android:paddingTop="16dp"
         android:textAlignment="center"
         android:textSize="24sp" />
 

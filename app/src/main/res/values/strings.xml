@@ -53,4 +53,5 @@
     <string name="consultationDoctorNameHint">Имя врача</string>
     <string name="shoppingCartBuy">Оформить</string>
     <string name="DeclineButtonString">Отменить</string>
+    <string name="consultationCostHint">Стоимость консультации</string>
 </resources>
